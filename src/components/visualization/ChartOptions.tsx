@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -10,7 +9,7 @@ import {
 } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { BarChart, PieChart, LineChart, ScatterPlot } from 'lucide-react';
+import { BarChart, PieChart, LineChart, ScatterChart } from 'lucide-react';
 
 export interface ChartConfig {
   type: 'bar' | 'line' | 'pie' | 'scatter';
@@ -84,7 +83,7 @@ export function ChartOptions({ data, onConfigChange }: ChartOptionsProps) {
     bar: <BarChart className="h-4 w-4" />,
     line: <LineChart className="h-4 w-4" />,
     pie: <PieChart className="h-4 w-4" />,
-    scatter: <ScatterPlot className="h-4 w-4" />
+    scatter: <ScatterChart className="h-4 w-4" />
   };
 
   return (
