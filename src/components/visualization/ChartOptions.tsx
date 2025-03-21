@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
@@ -11,6 +10,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BarChart, PieChart, LineChart, ScatterChart } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 
 export interface ChartConfig {
   type: 'bar' | 'line' | 'pie' | 'scatter';
@@ -29,13 +29,13 @@ interface ChartOptionsProps {
 export function ChartOptions({ data, onConfigChange, initialConfig }: ChartOptionsProps) {
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
   
-  const [chartType, setChartType] = useState<'bar' | 'line' | 'pie' | 'scatter'>('bar');
-  const [xAxis, setXAxis] = useState<string>(columns[0] || '');
-  const [yAxis, setYAxis] = useState<string>(columns[1] || '');
-  const [groupBy, setGroupBy] = useState<string>('');
-  const [title, setTitle] = useState<string>('Data Visualization');
+  const [chartType, setChartType] = useState<'bar' | 'line' | 'pie' | 'scatter'>(initialConfig?.type || 'bar');
+  const [xAxis, setXAxis] = useState<string>(initialConfig?.xAxis || columns[0] || '');
+  const [yAxis, setYAxis] = useState<string>(initialConfig?.yAxis || columns[1] || '');
+  const [groupBy, setGroupBy] = useState<string>(initialConfig?.groupBy || '');
+  const [title, setTitle] = useState<string>(initialConfig?.title || 'Data Visualization');
 
-  // Initialize from initialConfig if provided
+  // Update local state when initialConfig changes
   useEffect(() => {
     if (initialConfig) {
       setChartType(initialConfig.type);
@@ -46,14 +46,17 @@ export function ChartOptions({ data, onConfigChange, initialConfig }: ChartOptio
     }
   }, [initialConfig]);
 
-  // Initial configuration effect
+  // Send initial configuration to parent
   useEffect(() => {
-    updateConfig(chartType, xAxis, yAxis, groupBy, title);
-  }, []);
+    if (data.length > 0 && columns.length > 0) {
+      updateConfig(chartType, xAxis, yAxis, groupBy, title);
+    }
+  }, [data]);
 
   const handleChartTypeChange = (value: string) => {
-    setChartType(value as 'bar' | 'line' | 'pie' | 'scatter');
-    updateConfig(value as 'bar' | 'line' | 'pie' | 'scatter', xAxis, yAxis, groupBy, title);
+    const newType = value as 'bar' | 'line' | 'pie' | 'scatter';
+    setChartType(newType);
+    updateConfig(newType, xAxis, yAxis, groupBy, title);
   };
 
   const handleXAxisChange = (value: string) => {
@@ -72,8 +75,9 @@ export function ChartOptions({ data, onConfigChange, initialConfig }: ChartOptio
   };
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-    updateConfig(chartType, xAxis, yAxis, groupBy, e.target.value);
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+    updateConfig(chartType, xAxis, yAxis, groupBy, newTitle);
   };
 
   const updateConfig = (
@@ -106,10 +110,9 @@ export function ChartOptions({ data, onConfigChange, initialConfig }: ChartOptio
           <label htmlFor="chart-title" className="text-sm font-medium">
             Chart Title
           </label>
-          <input
+          <Input
             id="chart-title"
             type="text"
-            className="w-full p-2 border rounded-md"
             value={title}
             onChange={handleTitleChange}
             placeholder="Enter chart title"
