@@ -1,4 +1,5 @@
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -22,9 +23,10 @@ export interface ChartConfig {
 interface ChartOptionsProps {
   data: any[];
   onConfigChange: (config: ChartConfig) => void;
+  initialConfig?: ChartConfig;
 }
 
-export function ChartOptions({ data, onConfigChange }: ChartOptionsProps) {
+export function ChartOptions({ data, onConfigChange, initialConfig }: ChartOptionsProps) {
   const columns = data.length > 0 ? Object.keys(data[0]) : [];
   
   const [chartType, setChartType] = useState<'bar' | 'line' | 'pie' | 'scatter'>('bar');
@@ -32,6 +34,22 @@ export function ChartOptions({ data, onConfigChange }: ChartOptionsProps) {
   const [yAxis, setYAxis] = useState<string>(columns[1] || '');
   const [groupBy, setGroupBy] = useState<string>('');
   const [title, setTitle] = useState<string>('Data Visualization');
+
+  // Initialize from initialConfig if provided
+  useEffect(() => {
+    if (initialConfig) {
+      setChartType(initialConfig.type);
+      setXAxis(initialConfig.xAxis);
+      setYAxis(initialConfig.yAxis);
+      setGroupBy(initialConfig.groupBy || '');
+      setTitle(initialConfig.title);
+    }
+  }, [initialConfig]);
+
+  // Initial configuration effect
+  useEffect(() => {
+    updateConfig(chartType, xAxis, yAxis, groupBy, title);
+  }, []);
 
   const handleChartTypeChange = (value: string) => {
     setChartType(value as 'bar' | 'line' | 'pie' | 'scatter');
@@ -73,11 +91,6 @@ export function ChartOptions({ data, onConfigChange }: ChartOptionsProps) {
       title: titleValue || 'Data Visualization'
     });
   };
-
-  // Initial configuration
-  useState(() => {
-    updateConfig(chartType, xAxis, yAxis, groupBy, title);
-  });
 
   const chartIcons = {
     bar: <BarChart className="h-4 w-4" />,

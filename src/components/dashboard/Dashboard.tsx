@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/use-toast';
 import { PlusCircle } from 'lucide-react';
+import { DataAnalysisInput } from '@/components/data/DataAnalysisInput';
 
 interface DashboardProps {
   data: any[];
@@ -37,9 +38,15 @@ export function Dashboard({ data }: DashboardProps) {
       };
       
       setCharts([defaultConfig]);
-      setChartConfig(defaultConfig);
     }
   }, [data]);
+
+  // Initialize chartConfig when editing a chart
+  useEffect(() => {
+    if (editingChart !== null && charts[editingChart]) {
+      setChartConfig(charts[editingChart]);
+    }
+  }, [editingChart, charts]);
 
   const handleAddChart = () => {
     if (data.length === 0) {
@@ -99,10 +106,11 @@ export function Dashboard({ data }: DashboardProps) {
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="w-full md:w-auto grid grid-cols-3 md:inline-flex">
+        <TabsList className="w-full md:w-auto grid grid-cols-4 md:inline-flex">
           <TabsTrigger value="data">Data Table</TabsTrigger>
           <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
           <TabsTrigger value="customize">Customize</TabsTrigger>
+          <TabsTrigger value="analyze">Analyze</TabsTrigger>
         </TabsList>
         
         <TabsContent value="data" className="pt-6">
@@ -158,7 +166,7 @@ export function Dashboard({ data }: DashboardProps) {
             <div className="space-y-6">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-medium">
-                  {editingChart < charts.length ? 'Edit Chart' : 'Create New Chart'}
+                  {editingChart < charts.length && editingChart >= 0 ? 'Edit Chart' : 'Create New Chart'}
                 </h2>
                 <Button onClick={handleSaveChart}>Save Chart</Button>
               </div>
@@ -168,6 +176,7 @@ export function Dashboard({ data }: DashboardProps) {
                   <ChartOptions 
                     data={data} 
                     onConfigChange={handleConfigChange}
+                    initialConfig={chartConfig}
                   />
                 </div>
                 <div className="lg:col-span-2">
@@ -186,6 +195,10 @@ export function Dashboard({ data }: DashboardProps) {
               </Button>
             </div>
           )}
+        </TabsContent>
+
+        <TabsContent value="analyze" className="pt-6">
+          <DataAnalysisInput data={data} />
         </TabsContent>
       </Tabs>
     </div>
