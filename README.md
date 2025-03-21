@@ -1,67 +1,43 @@
 ## Project info
 
-**URL**: https://lovable.dev/projects/14ab407c-9433-4891-bde9-826aedd3b491
+# Welcome to Vizion
 
-## How can I edit this code?
+![image](https://github.com/user-attachments/assets/3da4870a-5046-4b1b-8900-699b900690e8)
 
-There are several ways of editing your application.
+# Vizion - Data Visualization Platform
 
-**Use Lovable**
+**Vizion** is a comprehensive data visualization platform designed to empower users to seamlessly upload, analyze, and visualize datasets through interactive and customizable charts.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/14ab407c-9433-4891-bde9-826aedd3b491) and start prompting.
+The platform features a modern and intuitive user interface, including:
+- A responsive navigation bar.
+- A visually engaging hero section showcasing the platform's core capabilities.
+- A detailed features section highlighting key functionalities.
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Features
 
-**Use your preferred IDE**
+- 📂 Upload data files in various formats (e.g., CSV, Excel).
+- 📊 Generate tailored visualizations, including:
+  - Bar charts
+  - Line graphs
+  - Pie charts
+  - Scatter plots
+- 🧠 Perform data analysis using natural language queries.
+- 💾 Save and manage visualizations within a personalized dashboard.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+With a focus on user-friendly interaction and powerful analytics, Vizion provides an all-in-one solution for transforming raw data into actionable insights.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+> **Built with ❤️ to simplify data storytelling.**
 
 ## What technologies are used for this project?
 
-This project is built with .
-
+This project is built with:
 - Vite
 - TypeScript
 - React
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/14ab407c-9433-4891-bde9-826aedd3b491) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+-- Aman Raj❤️
